@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Update File
+
+on:
+ workflow_dispatch:
+ schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  build_stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: wget
+        uses: wei/wget@v1
+        with:
+          args: --no-check-certificate -O elenco-comuni-italiani.xls http://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xls
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          # Optional. Commit message for the created commit.
+          # Defaults to "Apply automatic changes"
+          commit_message: Automated Update
+
+
+     
