@@ -19,6 +19,16 @@ jobs:
         with:
           args: --no-check-certificate -O elenco-comuni-italiani.xls http://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xls
 
+      - name: Convert to CSV
+        run : |
+          pip install csvkit
+          in2csv elenco-comuni-italiani.xls > elenco-comuni-italiani.csv
+        
+      - name: Convert to JSON
+        run: |
+          pip install csvkit
+          csvjson elenco-comuni-italiani.csv > elenco-comuni-italiani.json 
+          
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           # Optional. Commit message for the created commit.
